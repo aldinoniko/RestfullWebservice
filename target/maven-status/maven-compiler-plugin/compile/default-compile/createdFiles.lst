@@ -1,0 +1,3 @@
+com\example\rest\greeting\controller\SalamController.class
+com\example\rest\greeting\GreetingApplication.class
+com\example\rest\greeting\entity\Salam.class
