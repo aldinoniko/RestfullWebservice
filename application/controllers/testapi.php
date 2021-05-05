@@ -20,8 +20,12 @@
         }
         public function delete($slug){
             $this->load->model('post_api_model');
-            $this->post_api_model->delete_post($slug);
-        }
+            
+            $result = $this->post_api_model->delete_post($slug);
+                
+                // if($result  == true){
+                    redirect('testapi');
+                }             
 
         public function view($slug = false){
             if(!$slug){
@@ -76,10 +80,10 @@
             } else {
                 $result = $this->post_api_model->update_post(); //Proses update postingan
 
-                if ($result)
+                // if ($result)
                     redirect('testapi');                        //Update sukses
-                else
-                    show_error('Update GAGAL');
+                // else
+                //     show_error('Update GAGAL');
             }
 
         }

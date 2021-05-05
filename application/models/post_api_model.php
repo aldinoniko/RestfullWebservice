@@ -35,22 +35,25 @@
                     CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
                 ));
     
-                $response= json_decode(curl_exec($curl));
+                $result= json_decode(curl_exec($curl));
     
                 curl_close($curl);
                 // var_dump($response);
                 // die();
-                return ($response->status==200) ? true:false;
+                if ($result->status == 200) {
+                    $this->session->set_flashdata('success', "Respond Status: $result->status; Message: $result->message");
+                    return true;
+                }
+                else {
+                    $this->session->set_flashdata('warning', "Respond Status: $result->status; Message: $result->message");
+                    return false;   
+                }
+
         }
         
         
         public function delete_post($slug) {
             $api_url="http://localhost:8888/posts/delete_slug/$slug";
-            $data = json_encode(array(
-                'title' => $this->input->post('title'),
-                'body' => $this->input->post('body'),
-                'slug' => $this->input->post('title') 
-            ));
             
             $curl = curl_init();
 
@@ -59,15 +62,23 @@
               CURLOPT_RETURNTRANSFER => true,
               CURLOPT_FOLLOWLOCATION => true,
               CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-              CURLOPT_CUSTOMREQUEST => 'GET',
+              CURLOPT_CUSTOMREQUEST => 'DELETE',
             ));
             
-            $response = curl_exec($curl);
+            $result = json_decode(curl_exec($curl));
             
-            curl_close($curl);
-
-            return($api_url); 
+           curl_close($curl);
+        //    var_dump($result);
+        //     die();
+            if ($result->status == 200) {
+                $this->session->set_flashdata('success', "Respond Status: $result->status; Message: $result->message");
+                return true;
+            }
+            else {
+                $this->session->set_flashdata('error', "Respond Status: $result->status; Message: $result->message");
+                return false;   
         }
+    }
 
             public function update_post() {
             $id = $this->input->post('id');
@@ -75,7 +86,7 @@
 
             $data = json_encode(array(
                 'id' => (int)$this->input->post('id'),
-                'created_at' =>(int) $this->input->post('created_at'),
+                'created_at' => $this->input->post('created_at'),
                 'slug' => $this->input->post('slug'),
                 'title' => $this->input->post('title'),
                 'body' => $this->input->post('body')
@@ -94,12 +105,18 @@
                 CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
             ));
 
-            $response= json_decode(curl_exec($curl));
+            $result = json_decode(curl_exec($curl));
 
             curl_close($curl);
-            // var_dump($response);
-            // die();
-            return ($response->status == 200) ? true:false;
+
+            if ($result->status == 200) {
+                $this->session->set_flashdata('success', "Respond Status: $result->status; Message: $result->message");
+                return true;
+            }
+            else {
+                $this->session->set_flashdata('error', "Respond Status: $result->status; Message: $result->message");
+                return false;   
+
         }
     }
-   
+}
