@@ -1,15 +1,20 @@
+<?php
+    if(!$this->session->userdata('username')) redirect('login','refresh');
+?>
 <h2><?=$title ?></h2>
 <?=validation_errors(); ?>
 <?php
-if(isset($posts)) { var_dump($posts);
+if(isset($posts)) {
     echo form_open('testapi/edit/'.$posts->slug);   //, 'method="put"'
 
     echo form_hidden('id', $posts->id);
     echo form_hidden('slug', $posts->slug);
     echo form_hidden('created_at', $posts->created_at);
+    // echo form_hidden('userid', $posts->userid);
 }
 else {
     echo form_open('testapi/create');
+    echo form_hidden('userid', $this->session->userdata('id'));
 }
 ?>
     <div class="form-group">

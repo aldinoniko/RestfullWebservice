@@ -1,3 +1,6 @@
+<?php
+    if (!$this->session->userdata('username')) redirect ('login', 'refresh');
+?>
 <h2><?=$title ?></h2>
 <small><?= $posts['created_at'] ?></small>
 <div class="post-body">

@@ -10,7 +10,7 @@
         }
 
         public function index () {
-            $data['title'] = ucfirst('latest posts');
+            $data['title'] = ucwords('latest posts');
 
             $data['posts'] = $this->post_api_model->get_posts();
 
@@ -21,12 +21,14 @@
         public function delete($slug){
             $this->load->model('post_api_model');
             
-            $result = $this->post_api_model->delete_post($slug);
-                
-                // if($result  == true){
-                    redirect('testapi');
-                }             
+            $this->session->set_flashdata(
+                ($result->status==200) ? 'success' : 'error',
+                "<strong>Respond Status:</strong> $result->status<br /><strong>Message:</strong> $result->message"
+            );
 
+            redirect('testapi');
+        }    
+     
         public function view($slug = false){
             if(!$slug){
                 show_404();
@@ -61,7 +63,7 @@
         }
 
         public function edit($slug = false) {
-            $data['title'] = ucfirst('edit post');
+            $data['title'] = ucwords('edit post');
             
             $this->load->library('form_validation');
             $this->form_validation->set_rules('title', 'Title', 'required');
@@ -73,6 +75,8 @@
                 if (empty($data['posts'])) {
                     show_404();
                 }
+                if (empty($data['posts']))
+                    $this->session->set_flashdata('error', "<strong>Message:</strong> Data is not found!");
 
                 $this->load->view('templates/header');
                 $this->load->view('testapi/edit', $data);
@@ -80,11 +84,8 @@
             } else {
                 $result = $this->post_api_model->update_post(); //Proses update postingan
 
-                // if ($result)
-                    redirect('testapi');                        //Update sukses
-                // else
-                //     show_error('Update GAGAL');
+              
+                redirect('testapi');
             }
-
         }
-    }  
+    }

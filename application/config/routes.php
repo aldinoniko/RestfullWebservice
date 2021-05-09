@@ -53,10 +53,15 @@ $route['default_controller'] = 'pages/view';
 $route['testapi/edit/$1'] = 'testapi/edit/$1';
 $route['testapi/create'] = 'testapi/create';
 $route['testapi'] = 'testapi/index';
+
+
 $route['testapi/(:any)'] = 'testapi/view/$1';
 $route['posts/create'] = 'posts/create';
 $route['posts/(:any)'] = 'pages/view/$1';
 $route['posts'] = 'posts/index';
+
+$route['login'] = 'login/index';
+$route['logout'] = 'login/logout';
 $route['(:any)'] = '/pages/view/$1';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

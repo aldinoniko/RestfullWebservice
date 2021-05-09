@@ -1,6 +1,8 @@
-<h2><?=$title ?></h2>
+<?php
+    if (!$this->session->userdata('username')) redirect ('login', 'refresh');
+?>
 
-<?=validation_errors(); ?>
+<h2><?=$title ?></h2>
 <?php
 if(isset($posts)) {
     echo form_open('posts/edit/'.$posts['slug']);

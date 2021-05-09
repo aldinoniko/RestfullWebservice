@@ -18,11 +18,14 @@
                 //Menyiapkan Record baru ke dalam sebuah array
                 $api_url="http://localhost:8888/posts/create/";
                 $data = json_encode(array(
+                    
                     'title' => $this->input->post('title'),
                     'body' => $this->input->post('body'),
-                    'slug' => $this->input->post('title')    //membuat Slug Key dengan menambahkan tanggal dan waktu saat ini ke Title
+                    'slug' => $this->input->post('title'). '-' . mdate('%Y%m%d%H%i%s', time()),  //membuat Slug Key dengan menambahkan tanggal dan waktu saat ini ke Title
+                    // 'created_at' => $this->input->post('created_at'),
+                    'userid' => $this->input->post('userid', true)
                 ));
-                print_r($data);
+                // print_r($data);
                 $curl = curl_init();
     
                 curl_setopt_array($curl, array(
@@ -35,20 +38,19 @@
                     CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
                 ));
     
-                $result= json_decode(curl_exec($curl));
+                $response= json_decode(curl_exec($curl));
     
                 curl_close($curl);
                 // var_dump($response);
                 // die();
-                if ($result->status == 200) {
-                    $this->session->set_flashdata('success', "Respond Status: $result->status; Message: $result->message");
+                if ($response->status == 200) {
+                    $this->session->set_flashdata('success', "Respond Status: $response->status; Message: $response->message");
                     return true;
                 }
                 else {
-                    $this->session->set_flashdata('warning', "Respond Status: $result->status; Message: $result->message");
-                    return false;   
+                    $this->session->set_flashdata('success', "Respond Status: $response->status; Message: $response->message");
+                    return false;       
                 }
-
         }
         
         
@@ -78,6 +80,8 @@
                 $this->session->set_flashdata('error', "Respond Status: $result->status; Message: $result->message");
                 return false;   
         }
+        return $result;
+
     }
 
             public function update_post() {
@@ -86,10 +90,11 @@
 
             $data = json_encode(array(
                 'id' => (int)$this->input->post('id'),
-                'created_at' => $this->input->post('created_at'),
                 'slug' => $this->input->post('slug'),
                 'title' => $this->input->post('title'),
-                'body' => $this->input->post('body')
+                'body' => $this->input->post('body'),
+                'created_at' => $this->input->post('created_at'),
+                'userid' => $this->input->post('userid', true)
             ));
             // die($api_url);
 
@@ -102,7 +107,7 @@
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'PUT',
                 CURLOPT_POSTFIELDS => $data,
-                CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
+                CURLOPT_HTTPHEADER => array('Content-Type: application/json')
             ));
 
             $result = json_decode(curl_exec($curl));
@@ -118,5 +123,6 @@
                 return false;   
 
         }
+
     }
 }

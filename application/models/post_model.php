@@ -1,13 +1,14 @@
 <?php
-    class Post_model extends CI_Model {
+    class Post_Model extends CI_Model {
         public function __construct() {
             $this->load->database();
         }
 
         public function get_posts($slug = FALSE) {
             if($slug === FALSE){
+                $this->db->order_by('created', 'DESC');
                 $query = $this->db->get('posts');
-
+                
                 return $query->result_array();
             }
 

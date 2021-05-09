@@ -1,3 +1,6 @@
+<?php
+    if (!$this->session->userdata('username')) redirect ('login', 'refresh');
+?>
 <h2><?= $title ?></h2>
 
 <?php foreach($posts as $post) : ?>
