@@ -15,6 +15,7 @@ public interface PostsJpaRepository extends JpaRepository<Posts, Long>{
 	Optional<Posts> findBySlug(String slug);
 	  
 	Optional<Posts> findByTitle(String title);
+	List<Posts> findByUserid(Long userid);
 	
 	@Transactional
 	void deleteByTitle(String title);

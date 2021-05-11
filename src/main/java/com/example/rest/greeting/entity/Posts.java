@@ -27,6 +27,7 @@ public class Posts {
 	@Column(name="created_at")
 	private Date created;
 	
+	private Long userid;
 
 	
 	public Long getId() {
@@ -60,5 +61,14 @@ public class Posts {
 		this.created = created_at;
 	}
 
-	
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
+
 }
+	
+

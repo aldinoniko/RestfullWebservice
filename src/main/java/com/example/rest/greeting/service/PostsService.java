@@ -22,12 +22,25 @@ public class PostsService {
 //		return postsJpaRepository.findAll();
 		return postsJpaRepository.findAll(Sort.by("created").descending());
 	}
+	public List<Posts> getPosts(Long userid){	
+		//SELECT * FROM posts
+//		return postsJpaRepository.findAll();
+		return postsJpaRepository.findByUserid(userid);
+	}
 
 	public Posts getPost(String slug) {
 		//SELECT * FROM posts WHERE slug;
 		return postsJpaRepository.findBySlug(slug).get();
 	}
-
+	public Posts getPostByTitle(String title) {
+		if (postsJpaRepository.findByTitle(title).isPresent()) {
+			return postsJpaRepository.findByTitle(title).get();
+		}
+		else {
+			throw new ResponseStatusException(
+				HttpStatus.NOT_FOUND, "Post [title=" + title + "] is not found!");
+		}				
+	}
 	public Posts createPost(Posts posts) {
 		//INSERT INTO posts Values (<posts.slug>, <posts.title>, <posts.body>)
 		Optional<Posts> postOptional  = postsJpaRepository.findByTitle(posts.getTitle());

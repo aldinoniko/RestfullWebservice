@@ -21,17 +21,22 @@ public class UsersController {
         this.usersService = usersService;
     }
     
-    @GetMapping("/get_users")
+    @GetMapping("/get")
     public List<Users> getUsers() {
     	return usersService.getAll();
     }
     
-    @GetMapping("/get_users/{name}")
+    @GetMapping("/get/{name}")
     public Users getUser(@PathVariable final String name) {
     	return usersService.getUserByName(name);
     }
-
-    @GetMapping("/get_user_posts")
+    
+    @GetMapping("/get_by_email/{email}")
+    public Users getUserByEmail(@PathVariable final String email) {
+    	return usersService.getUserByEmail(email);
+    }
+    
+    @GetMapping("/get_posts")
     public List<UserPosts> getUserPosts() {
     	return usersService.getUserPosts();
     }

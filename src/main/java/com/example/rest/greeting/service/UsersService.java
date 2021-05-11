@@ -26,6 +26,10 @@ public class UsersService {
 			HttpStatus.NOT_FOUND, "User [name=" + name + "] is not found!"));
 	}
 
+	public Users getUserByEmail(String email) {		
+		return userRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(
+			HttpStatus.NOT_FOUND, "User by email [email=" + email + "] is not found!"));
+	}
 	public List<UserPosts> getUserPosts() {
 		if (!userRepository.getAllUserPosts().isEmpty()) {
 			return userRepository.getAllUserPosts();

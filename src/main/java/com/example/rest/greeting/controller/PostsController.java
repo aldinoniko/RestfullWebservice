@@ -3,6 +3,7 @@ package com.example.rest.greeting.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.rest.greeting.entity.Posts;
+
 import com.example.rest.greeting.service.PostsService;
 
 @RestController
@@ -39,13 +41,17 @@ public class PostsController {
 		return postService.getPostWithBody(body);
 		
 	}
-
+	@GetMapping("/title/{title}")
+    public Posts getPostByTitle(@PathVariable final String title){
+        return postService.getPostByTitle(title);
+    }
+	
 	@PostMapping("/create")
 	public Posts create(@RequestBody final Posts posts) {
 		return postService.createPost(posts);
 	}
 	
-	@GetMapping("/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public List<Posts> delete (@PathVariable final Long id){
 		return postService.deletePost(id);
 	}
@@ -55,7 +61,7 @@ public class PostsController {
     	return postService.editPost(posts, id);
     }
 	
-	@GetMapping("/delete_slug/{slug}")
+	@DeleteMapping("/delete_slug/{slug}")
 	public void delete (@PathVariable final String slug ) {
 		if (postService.deletePostBySlug(slug))
 			throw new ResponseStatusException(HttpStatus.OK, "Post [=" + slug +"] succesfully removed ");
@@ -64,10 +70,15 @@ public class PostsController {
 			
 	}
 	
-	@GetMapping("/delete_title/{title}")
+	@DeleteMapping("/delete_title/{title}")
 	public void delete_title (@PathVariable final String title ) {
 		if(postService.deletePostByTitle(title))
 			throw new ResponseStatusException(HttpStatus.OK, "Post [=" + title +"] succesfully removed ");
+	}
+	
+	@GetMapping("/get_userid/{userid}")
+	public List<Posts> findByUserid(@PathVariable final Long userid){
+		return postService.getPosts(userid);
 	}
 	
 }
