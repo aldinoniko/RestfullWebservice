@@ -15,7 +15,7 @@
             $data['posts'] = $this->post_api_model->get_posts();
 
             $this->load->view('templates/header');
-            ($data['posts']) ? $this->load->view('testapi/index', $data) : show_404();
+            ($data['posts']) ? $this->load->view('testapi/index2', $data) : show_404();
             $this->load->view('templates/footer');
         }
         public function delete($slug){
