@@ -10,7 +10,7 @@ if(isset($posts)) {
     echo form_hidden('id', $posts->id);
     echo form_hidden('slug', $posts->slug);
     echo form_hidden('created_at', $posts->created_at);
-    // echo form_hidden('userid', $posts->userid);
+    echo form_hidden('userid', $posts->userid);
 }
 else {
     echo form_open('testapi/create');

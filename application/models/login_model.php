@@ -42,6 +42,7 @@
                 $this->session->set_userdata('email', $response->email);
                 $this->session->set_userdata('username', $response->username);
                 $this->session->set_userdata('password', $response->password);
+                // $this->session->set_userdata('userid', $response->userid);
 
                 return true;
             }

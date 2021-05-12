@@ -52,7 +52,19 @@
                     return false;       
                 }
         }
+           
+            public function get_posts_userid($userid = FALSE){
+            $api_url =("http://localhost:8888/posts/get_userid/$userid");
+
+            $svcGet = curl_init($api_url);
+            curl_setopt($svcGet, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($svcGet);
+            curl_close($svcGet);
         
+            $result = json_decode($response);
+
+            return $result;
+    }
         
         public function delete_post($slug) {
             $api_url="http://localhost:8888/posts/delete_slug/$slug";

@@ -11,23 +11,20 @@
 
         public function index () {
             $data['title'] = ucwords('latest posts');
-
-            $data['posts'] = $this->post_api_model->get_posts();
-
+            
+            $userid = $this->session->userdata('id');
+           
+            // $data['posts'] = $this->post_api_model->get_posts();
+            $data['posts'] = $this->post_api_model->get_posts_userid($userid);
             $this->load->view('templates/header');
-            ($data['posts']) ? $this->load->view('testapi/index2', $data) : show_404();
+            ($data['posts']) ? $this->load->view('testapi/index', $data) : show_404();
             $this->load->view('templates/footer');
         }
         public function delete($slug){
             $this->load->model('post_api_model');
-            
-            $this->session->set_flashdata(
-                ($result->status==200) ? 'success' : 'error',
-                "<strong>Respond Status:</strong> $result->status<br /><strong>Message:</strong> $result->message"
-            );
-
-            redirect('testapi');
-        }    
+            $result = $this->post_api_model->delete_post($slug);
+            redirect('testapi'); 
+        }
      
         public function view($slug = false){
             if(!$slug){
