@@ -53,7 +53,7 @@
                 }
         }
            
-            public function get_posts_userid($userid = FALSE){
+            public function get_posts_userid($userid = false){
             $api_url =("http://localhost:8888/posts/get_userid/$userid");
 
             $svcGet = curl_init($api_url);
@@ -62,8 +62,10 @@
             curl_close($svcGet);
         
             $result = json_decode($response);
-
+        // var_dump($result);
+        //         die();
             return $result;
+            
     }
         
         public function delete_post($slug) {
