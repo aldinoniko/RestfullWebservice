@@ -54,7 +54,7 @@
         }
            
             public function get_posts_userid($userid = false){
-            $api_url =("http://localhost:8888/posts/get_userid/$userid");
+            $api_url =("http://localhost:8888/users/get_userid/$userid");
 
             $svcGet = curl_init($api_url);
             curl_setopt($svcGet, CURLOPT_RETURNTRANSFER, true);
