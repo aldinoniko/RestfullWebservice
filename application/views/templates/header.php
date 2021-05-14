@@ -18,12 +18,13 @@
 
             <div id="navbar">
                 <ul class="nav navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="<?= base_url(); ?>">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url(); ?>about">About</a></li>
+                <li class="nav-item"><a class="btn btn-info" href="<?= base_url(); ?>">Home</a></li>
+                <li class="nav-item"><a class="btn btn-info" href="<?= base_url(); ?>about">About</a></li>
 
                     <?php if($this->session->userdata('username')): ?>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url(); ?>testapi">Posts (API)</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url(); ?>testapi/create">Create</a></li>
+                <li class="nav-item"><a class="btn btn-primary" href="<?= base_url(); ?>testapi">Posts (API)</a></li>
+                <li class="nav-item"><a class="btn btn-primary" href="<?= base_url(); ?>testapi/create">Create</a></li>
+                <li class="nav-item"><a class="font-italic" ><?php echo $this->session->userdata("username") ?></a></li>
                 <li class="nav-item"><a class="btn btn-danger" type="button" href="<?= base_url(); ?>logout">Logout</a></li>
                      <?php else: ?>
                 <li class="nav-item"><a class="btn btn-secondary" type="button" href="<?= base_url(); ?>login">Login</a></li>
