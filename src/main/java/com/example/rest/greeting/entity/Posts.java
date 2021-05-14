@@ -22,12 +22,13 @@ public class Posts {
 	private String slug;
 	private String title;
 	private String body;
+	private Long userid;
 	@CreationTimestamp
 	
 	@Column(name="created_at")
 	private Date created;
 	
-	private Long userid;
+	
 
 	
 	public Long getId() {

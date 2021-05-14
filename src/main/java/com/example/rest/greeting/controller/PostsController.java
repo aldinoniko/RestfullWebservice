@@ -30,6 +30,10 @@ public class PostsController {
 	public List<Posts> getAll() {
 		return postService.getPosts();
 	}
+//	@GetMapping("/get_userid/{userid}")
+//	public List<Posts> getUserPosts(@PathVariable final Long userid){
+//		return postService.getPosts(userid);
+//	}
 	
 	@GetMapping("/get/{slug}")
 	public Posts getPosts(@PathVariable final String slug) {
@@ -74,11 +78,6 @@ public class PostsController {
 	public void delete_title (@PathVariable final String title ) {
 		if(postService.deletePostByTitle(title))
 			throw new ResponseStatusException(HttpStatus.OK, "Post [=" + title +"] succesfully removed ");
-	}
-	
-	@GetMapping("/get_userid/{userid}")
-	public List<Posts> findByUserid(@PathVariable final Long userid){
-		return postService.getPosts(userid);
 	}
 	
 }

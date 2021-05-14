@@ -12,21 +12,23 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.rest.greeting.entity.Posts;
 import com.example.rest.greeting.repository.PostsJpaRepository;
 
+
 @Service
 public class PostsService {
 	@Autowired
 	private PostsJpaRepository postsJpaRepository;
-		
+
 	public List<Posts> getPosts(){	
 		//SELECT * FROM posts
 //		return postsJpaRepository.findAll();
 		return postsJpaRepository.findAll(Sort.by("created").descending());
 	}
-	public List<Posts> getPosts(Long userid){	
-		//SELECT * FROM posts
-//		return postsJpaRepository.findAll();
-		return postsJpaRepository.findByUserid(userid);
-	}
+//	public List<Posts> getPosts(Long userid){	
+//		//SELECT * FROM posts
+////		return postsJpaRepository.findAll();
+//		return postsJpaRepository.findByUserid(userid);
+//	}
+//	
 
 	public Posts getPost(String slug) {
 		//SELECT * FROM posts WHERE slug;
